@@ -1,0 +1,76 @@
+name: design_mirror
+description: DesignMirror AI — AR interior design assistant with room scanning and furniture staging.
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # ── State Management (BLoC) ───────────────────
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.7
+
+  # ── AR / 3D ─────────────────────────────────
+  vector_math: ^2.1.4
+  camera: ^0.11.0+2
+  permission_handler: ^11.3.1
+  model_viewer_plus: ^1.8.1
+  arcore_flutter_plugin: ^0.1.0
+
+  # ── Networking ────────────────────────────────
+  dio: ^5.7.0
+  json_annotation: ^4.9.0
+
+  # ── Local Storage ─────────────────────────────
+  flutter_secure_storage: ^9.2.3
+  shared_preferences: ^2.3.4
+
+  # ── UI / UX ──────────────────────────────────
+  cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.16
+  shimmer: ^3.0.0
+  fluttertoast: ^8.2.8
+  cached_network_image: ^3.4.1
+  pdf: ^3.11.1
+  share_plus: ^10.1.3
+  path_provider: ^2.1.5
+  image_picker: ^1.1.2
+
+  # ── Splash ──────────────────────────────────
+  flutter_native_splash: ^2.4.4
+
+  # ── Utilities ────────────────────────────────
+  get_it: ^8.0.2
+  go_router: ^14.6.2
+  intl: ^0.19.0
+  logger: ^2.5.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  build_runner: ^2.4.13
+  json_serializable: ^6.8.0
+
+flutter_native_splash:
+  color: "#1A1A2E"
+  image: assets/app_icon.png
+  color_dark: "#1A1A2E"
+  image_dark: assets/app_icon.png
+  android_12:
+    color: "#1A1A2E"
+    icon_background_color: "#1A1A2E"
+    image: assets/app_icon.png
+    color_dark: "#1A1A2E"
+    icon_background_color_dark: "#1A1A2E"
+    image_dark: assets/app_icon.png
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/

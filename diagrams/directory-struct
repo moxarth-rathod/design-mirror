@@ -1,0 +1,108 @@
+Flutter App ──(HTTPS/JWT)──▶ FastAPI ──▶ Service Layer ──▶ MongoDB (structured data)
+                                │                │
+                                │                ├──▶ Redis (cache + task broker)
+                                │                │
+                                │                └──▶ MinIO (3D models / scan files)
+                                │
+                                └──▶ Celery Worker ──▶ SAM (room segmentation)
+
+
+
+design-mirror/
+│
+├── mobile/                          # Flutter Mobile App
+│   ├── lib/
+│   │   ├── main.dart
+│   │   ├── app.dart
+│   │   ├── config/
+│   │   │   ├── app_config.dart
+│   │   │   ├── routes.dart
+│   │   │   └── theme.dart
+│   │   ├── blocs/                   # BLoC state management
+│   │   │   ├── auth/
+│   │   │   ├── room_scan/
+│   │   │   └── catalog/
+│   │   ├── models/                  # Dart data models
+│   │   ├── repositories/           # API communication layer
+│   │   ├── screens/
+│   │   │   ├── auth/
+│   │   │   ├── home/
+│   │   │   ├── scanner/
+│   │   │   └── catalog/
+│   │   ├── services/               # AR, HTTP, Storage services
+│   │   │   ├── ar_service.dart
+│   │   │   └── api_service.dart
+│   │   └── widgets/                # Reusable UI components
+│   ├── pubspec.yaml
+│   └── README.md
+│
+├── backend/                         # FastAPI Backend
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py                  # FastAPI app entry point
+│   │   ├── config.py                # Settings via Pydantic BaseSettings
+│   │   ├── database.py              # SQLAlchemy async engine + session
+│   │   ├── dependencies.py          # Dependency injection (get_db, get_current_user)
+│   │   │
+│   │   ├── api/
+│   │   │   ├── __init__.py
+│   │   │   └── v1/
+│   │   │       ├── __init__.py
+│   │   │       ├── router.py        # Aggregates all v1 routers
+│   │   │       ├── auth.py          # Sign-up, Login, Token refresh
+│   │   │       ├── rooms.py         # Room scan CRUD
+│   │   │       ├── catalog.py       # Product catalog endpoints
+│   │   │       ├── fitcheck.py      # Collision detection endpoint
+│   │   │       └── health.py        # Health check
+│   │   │
+│   │   ├── models/                  # SQLAlchemy ORM models
+│   │   │   ├── __init__.py
+│   │   │   ├── user.py
+│   │   │   ├── room.py
+│   │   │   └── product.py
+│   │   │
+│   │   ├── schemas/                 # Pydantic request/response schemas
+│   │   │   ├── __init__.py
+│   │   │   ├── user.py
+│   │   │   ├── room.py
+│   │   │   ├── product.py
+│   │   │   └── fitcheck.py
+│   │   │
+│   │   ├── services/                # Business logic layer
+│   │   │   ├── __init__.py
+│   │   │   ├── auth_service.py      # JWT creation, password hashing
+│   │   │   ├── room_service.py      # Coordinate transforms, scan processing
+│   │   │   ├── catalog_service.py   # Product CRUD + Redis cache
+│   │   │   ├── fitcheck_service.py  # 3D collision detection algorithm
+│   │   │   └── unit_safety.py       # ft/in/m conversion class
+│   │   │
+│   │   ├── core/                    # Cross-cutting concerns
+│   │   │   ├── __init__.py
+│   │   │   ├── security.py          # Bcrypt, JWT utilities, AES-256 encryption
+│   │   │   ├── logging.py           # Loguru configuration
+│   │   │   └── exceptions.py        # Custom exception handlers
+│   │   │
+│   │   └── workers/                 # Celery async tasks
+│   │       ├── __init__.py
+│   │       ├── celery_app.py        # Celery config with Redis broker
+│   │       └── sam_task.py          # SAM segmentation task
+│   │
+│   ├── alembic/                     # Database migrations
+│   │   ├── env.py
+│   │   └── versions/
+│   ├── alembic.ini
+│   ├── requirements.txt
+│   ├── Dockerfile
+│   └── .env.example
+│
+├── database/
+│   └── init.sql                     # Initial DB schema (backup/reference)
+│
+├── scripts/
+│   ├── seed_catalog.py              # Seed sample furniture into DB
+│   └── generate_keys.py             # Generate JWT signing keys
+│
+├── docker-compose.yml               # FastAPI + MongoDB + Redis + MinIO
+├── .gitignore
+├── .env.example
+└── PROJECT_DESCRIPTION.md

@@ -1,0 +1,44 @@
+# ───────────────────────────────────────────────
+# DesignMirror AI — Backend Dependencies
+# Python 3.11+
+# ───────────────────────────────────────────────
+
+# --- Web Framework ---
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+python-multipart==0.0.18          # Form data parsing (login form)
+
+# --- MongoDB (Async) ---
+motor==3.6.0                       # Async MongoDB driver
+beanie==1.27.0                     # Async ODM built on Motor + Pydantic v2
+
+# --- Caching ---
+redis[hiredis]==5.2.1              # Async Redis client with C parser
+
+# --- Authentication & Security ---
+python-jose[cryptography]==3.3.0   # JWT encoding/decoding
+passlib[bcrypt]==1.7.4             # Password hashing abstraction
+bcrypt==4.2.1                      # Bcrypt backend
+cryptography==44.0.0               # AES-256-GCM encryption for data-at-rest
+
+# --- Validation & Settings ---
+pydantic[email]==2.10.4           # Strict data validation
+pydantic-settings==2.7.1          # Environment-based config
+
+# --- Rate Limiting ---
+slowapi==0.1.9                     # Rate limiter for FastAPI
+
+# --- Logging ---
+loguru==0.7.3                      # Structured logging
+
+# --- Object Storage ---
+minio==7.2.12                      # S3-compatible MinIO client
+
+# --- Background Workers ---
+celery[redis]==5.4.0               # Distributed task queue
+
+# --- Dev / Testing ---
+httpx==0.28.1                      # Async HTTP client for testing
+pytest==8.3.4
+pytest-asyncio==0.25.0
+

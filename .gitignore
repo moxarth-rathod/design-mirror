@@ -1,0 +1,52 @@
+# ───────────────────────────────────────────────
+# DesignMirror AI — .gitignore
+# ───────────────────────────────────────────────
+
+# --- Environment ---
+.env
+*.env.local
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+env/
+
+# --- IDE ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# --- Docker ---
+docker-compose.override.yml
+
+# --- Flutter ---
+mobile/.dart_tool/
+mobile/.packages
+mobile/build/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/ios/Pods/
+mobile/android/.gradle/
+
+# --- Logs ---
+*.log
+logs/
+
+# --- MinIO data ---
+minio_data/
+
+# --- MongoDB data ---
+mongo_data/
+
+# --- Redis data ---
+redis_data/
+

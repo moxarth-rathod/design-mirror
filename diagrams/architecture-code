@@ -1,0 +1,59 @@
+graph TB
+    subgraph "Mobile (Flutter)"
+        A[Flutter App] --> B[ARKit / ARCore]
+        A --> C[BLoC State Management]
+        A --> D[REST API Client]
+        A --> E[3D Model Viewer<br/>.GLB / .USDZ]
+    end
+
+    subgraph "API Gateway (FastAPI)"
+        F[FastAPI Main] --> G[Auth Router<br/>/api/v1/auth]
+        F --> H[Room Router<br/>/api/v1/rooms]
+        F --> I[Catalog Router<br/>/api/v1/catalog]
+        F --> J[FitCheck Router<br/>/api/v1/fitcheck]
+        F --> K[Health Router<br/>/api/v1/health]
+        F --> L[Middleware<br/>CORS · Rate Limit · JWT Verify]
+    end
+
+    subgraph "Service Layer (Python)"
+        M[Auth Service<br/>JWT · Bcrypt]
+        N[Room Scan Service<br/>Coordinate Transform]
+        O[Catalog Service]
+        P[FitCheck Service<br/>Collision Detection]
+        Q[Unit Safety Module<br/>ft ↔ in ↔ m]
+    end
+
+    subgraph "AI Workers"
+        R[Celery Worker] --> S[SAM Model<br/>Segment Anything]
+        R --> T[Redis Broker<br/>Task Queue]
+    end
+
+    subgraph "Data Layer"
+        U[(MongoDB<br/>Users · Rooms · Products)]
+        V[(Redis Cache<br/>Sessions · Catalog Cache)]
+        W[(MinIO<br/>3D Models · Room Scans)]
+    end
+
+    D -- "HTTPS + JWT" --> F
+    G --> M
+    H --> N
+    I --> O
+    J --> P
+    P --> Q
+    N --> R
+
+    M --> U
+    N --> U
+    O --> U
+    O --> V
+    P --> V
+    N --> W
+    O --> W
+    E -- "Download .GLB/.USDZ" --> W
+
+    style A fill:#4FC3F7,stroke:#0288D1
+    style F fill:#81C784,stroke:#388E3C
+    style U fill:#FFB74D,stroke:#F57C00
+    style V fill:#EF5350,stroke:#C62828
+    style W fill:#AB47BC,stroke:#7B1FA2
+    style R fill:#FFF176,stroke:#FBC02D
